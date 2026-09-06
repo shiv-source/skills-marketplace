@@ -1,2 +1,3 @@
 bash scripts/protect-branches.sh || exit $?
-npm run check
+npm run check || exit $?
+git add catalog.json

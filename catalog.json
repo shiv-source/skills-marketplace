@@ -1,0 +1,112 @@
+{
+  "$schema": "./catalog.schema.json",
+  "schemaVersion": "1.0.0",
+  "name": "skills-marketplace",
+  "description": "Community skill catalog for opencode/Claude agents",
+  "homepage": "https://github.com/shiv-source/skills-marketplace",
+  "repository": "https://github.com/shiv-source/skills-marketplace",
+  "license": "MIT",
+  "updatedAt": "2026-09-06T11:34:19.022Z",
+  "skills": [
+    {
+      "slug": "api-design",
+      "name": "api-design",
+      "description": "Use when adding or changing HTTP endpoints, request/response contracts, validation, error handling, pagination, versioning, REST routes, GraphQL schemas, or OpenAPI documents",
+      "references": [
+        "graphql",
+        "openapi"
+      ],
+      "path": "skills/api-design"
+    },
+    {
+      "slug": "best-practices",
+      "name": "best-practices",
+      "description": "Use as the default baseline when writing or changing production code that has no more specific skill attached — readable, correct, testable, maintainable code",
+      "references": [],
+      "path": "skills/best-practices"
+    },
+    {
+      "slug": "brainstorming",
+      "name": "brainstorming",
+      "description": "Use when a task is open-ended — how should we, options for, design a — without a chosen direction, or when comparing approaches and trade-offs before committing",
+      "references": [],
+      "path": "skills/brainstorming"
+    },
+    {
+      "slug": "code-review",
+      "name": "code-review",
+      "description": "Use when reviewing a diff, pull request, or code change before it merges — check correctness, security, and maintainability",
+      "references": [
+        "owasp"
+      ],
+      "path": "skills/code-review"
+    },
+    {
+      "slug": "database-migrations",
+      "name": "database-migrations",
+      "description": "Use when adding or changing tables, columns, constraints, indexes, backfills, data transformations, or schema definitions — design safe, reversible, performant migrations",
+      "references": [
+        "postgres"
+      ],
+      "path": "skills/database-migrations"
+    },
+    {
+      "slug": "docs-writing",
+      "name": "docs-writing",
+      "description": "Use when adding or updating READMEs, API docs, inline docs, or operational runbooks, and when changed behavior or contracts must stay in sync with documentation",
+      "references": [
+        "openapi"
+      ],
+      "path": "skills/docs-writing"
+    },
+    {
+      "slug": "frontend-ux",
+      "name": "frontend-ux",
+      "description": "Use when building or changing components, pages, routes, or styling, and for accessibility, responsiveness, or design-system conformance in any frontend framework",
+      "references": [
+        "angular",
+        "nextjs",
+        "react",
+        "testing-library",
+        "vue"
+      ],
+      "path": "skills/frontend-ux"
+    },
+    {
+      "slug": "performance",
+      "name": "performance",
+      "description": "Use when investigating slowness, latency, throughput, scaling, or missed SLOs, and when profiling, optimizing, or troubleshooting queries, caching, and hot paths",
+      "references": [
+        "go",
+        "node",
+        "postgres"
+      ],
+      "path": "skills/performance"
+    },
+    {
+      "slug": "refactoring",
+      "name": "refactoring",
+      "description": "Use when asked to improve, clean up, simplify, restructure, deduplicate, extract, or rename existing code without changing its observable behavior",
+      "references": [],
+      "path": "skills/refactoring"
+    },
+    {
+      "slug": "security-hardening",
+      "name": "security-hardening",
+      "description": "Use when a change handles user input, authentication, authorization, secrets, SQL, HTML rendering, deserialization, or any data flow across a trust boundary — apply OWASP-informed secure coding and threat modeling",
+      "references": [
+        "owasp"
+      ],
+      "path": "skills/security-hardening"
+    },
+    {
+      "slug": "test-first",
+      "name": "test-first",
+      "description": "Use when a task adds or changes behavior you can observe and assert, or fixes a bug — write the failing test first and drive the change through red-green-refactor",
+      "references": [
+        "testing-library"
+      ],
+      "path": "skills/test-first"
+    }
+  ]
+}
