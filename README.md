@@ -9,23 +9,20 @@ a single source of truth.
 
 ```
 skills-marketplace/
-├── .github/workflows/ci.yml  # check on PRs; build+upload catalog on main
+├── .github/workflows/ci.yml  # check on PRs; regenerate+commit catalog on main
 ├── .husky/pre-commit         # git hook: block main commits + npm run check
 ├── skills/<slug>/
 │   ├── SKILL.md              # skill instructions (name == slug == dir)
 │   └── references/*.md       # bundled reference docs (self-contained skill)
+├── catalog.json              # GENERATED — committed to main by CI
 ├── catalog.schema.json       # JSON Schema contract for catalog.json
 ├── scripts/
 │   ├── protect-branches.sh   # branch-protection guard used by the git hook
-│   ├── frontmatter.mjs       # constrained YAML frontmatter parser
+│   ├── frontmatter.mjs       # YAML frontmatter parser (js-yaml)
 │   ├── generate.mjs          # catalog.json generator (reads SKILL.md frontmatter)
 │   └── validate.mjs          # full conformance + drift validator
 └── package.json              # npm run generate / validate
 ```
-
-`catalog.json` is a **generated artifact and is not tracked** (see
-`.gitignore`). It is produced by `npm run generate` and built by CI from the
-SKILL.md files.
 
 ## Skill format
 
@@ -69,16 +66,19 @@ exist in multiple skills diverge, so a shared edit is never silently lost.
 ## catalog.json
 
 `catalog.json` lists the whole marketplace in one request and is **generated**
-from the SKILL.md files — it is not a source of truth and is not committed to
-the repository. Generate it locally with:
+from the SKILL.md files — it is not a source of truth, but it is committed to
+`main` so the repo always serves a ready-to-use catalog. Generate it locally
+with:
 
 ```
 npm run generate
 ```
 
-The catalog carries marketplace-level metadata (`schemaVersion`, `description`,
-`homepage`, `repository`, `license`, `updatedAt`) plus a record per skill
-(`slug`, `name`, `description`, `references`, `path`). The contract is defined by
+On every push to `main`, CI regenerates it and commits any change back to
+`main`, so a stale catalog is corrected automatically. The catalog carries
+marketplace-level metadata (`schemaVersion`, `description`, `homepage`,
+`repository`, `license`, `updatedAt`) plus a record per skill (`slug`, `name`,
+`description`, `references`, `path`). The contract is defined by
 `catalog.schema.json` (JSON Schema 2020-12).
 
 ## Validation
@@ -107,10 +107,10 @@ npm run check
 - **Pull requests** — `npm run check` (generate + validate) runs to prove the
   branch's skills are well-formed. You don't need to run `npm run generate`
   locally before pushing.
-- **Push to `main`** — the `publish-catalog` job generates and validates
-  `catalog.json`, then uploads it as a downloadable **workflow artifact**
-  (`.github` run → Artifacts). There is no stable hosted URL; consumers build
-  the catalog from source with `npm run generate`.
+- **Push to `main`** — the `sync-catalog` job regenerates `catalog.json`,
+  validates it, and commits + pushes the result back to `main` (as
+  `github-actions[bot]`) whenever the catalog actually changed, so the published
+  catalog is never stale.
 
 ### Local git hooks (Husky)
 
@@ -118,7 +118,8 @@ Husky installs a `pre-commit` hook on `npm install` (see `prepare`). The hook:
 
 1. Blocks direct commits to `main`/`master` (via `scripts/protect-branches.sh`) — use a
    feature branch and open a PR instead.
-2. Runs `npm run check` so a commit can never break the catalog build.
+2. Runs `npm run check` so a commit can never break the catalog build, then
+   stages the regenerated `catalog.json`.
 
 ## Adding or updating a skill
 
@@ -127,19 +128,13 @@ Husky installs a `pre-commit` hook on `npm install` (see `prepare`). The hook:
    needs under `skills/<slug>/references/` and link them relatively from the
    body. If the content already exists in another skill's `references/`, copy it
    verbatim.
-2. Open a pull request. CI checks it (and builds the catalog artifact on
-   `main`). To preview the catalog locally, run `npm run check`.
+2. Open a pull request. CI checks it; after merge the catalog is regenerated and
+   committed to `main` automatically. To preview locally, run `npm run check`.
 
-## Consuming the catalog
+## Install URL
 
-`catalog.json` is built from source. To produce it:
+The marketplace (and its `catalog.json`) is served from this repository:
 
 ```
-git clone https://github.com/shiv-source/skills-marketplace
-cd skills-marketplace
-npm ci          # installs Husky/dev deps
-npm run check   # generates catalog.json + validates everything
+https://github.com/shiv-source/skills-marketplace
 ```
-
-The CI workflow also uploads the generated `catalog.json` as an artifact of
-every `main` run (see the run's **Artifacts** section).

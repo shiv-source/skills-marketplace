@@ -6,6 +6,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
     name: Check skills
@@ -27,10 +31,12 @@ jobs:
       - name: Generate and validate
         run: npm run check
 
-  publish-catalog:
-    name: Build and publish catalog.json artifact
+  sync-catalog:
+    name: Regenerate and commit catalog.json
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -47,10 +53,16 @@ jobs:
       - name: Generate and validate
         run: npm run check
 
-      - name: Upload catalog.json artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: catalog
-          path: catalog.json
-          if-no-files-found: error
-          retention-days: 90
+      - name: Commit and push catalog.json if changed
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          if ! git diff --quiet -- catalog.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add catalog.json
+            git commit -m "chore: regenerate catalog.json"
+            git push origin "HEAD:${BRANCH}"
+          else
+            echo "catalog.json is up to date; nothing to commit."
+          fi
