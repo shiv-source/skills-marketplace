@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Generated catalog (built by CI, not tracked)
+catalog.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.*
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

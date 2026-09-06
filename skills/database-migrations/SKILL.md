@@ -1,10 +1,6 @@
 ---
 name: database-migrations
-description: Design safe, reversible schemas and migrations with the right indexes
-references: [postgres]
-tags: [database, sql, migrations]
-tools: [bash]
-effort: medium
+description: Use when adding or changing tables, columns, constraints, indexes, backfills, data transformations, or schema definitions — design safe, reversible, performant migrations
 ---
 # Database Migrations
 

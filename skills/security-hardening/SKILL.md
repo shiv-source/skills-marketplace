@@ -1,10 +1,6 @@
 ---
 name: security-hardening
-description: Apply OWASP-informed secure coding and threat modeling to every trust boundary
-references: [owasp]
-tags: [security, owasp, threat-modeling]
-tools: [bash]
-effort: high
+description: Use when a change handles user input, authentication, authorization, secrets, SQL, HTML rendering, deserialization, or any data flow across a trust boundary — apply OWASP-informed secure coding and threat modeling
 ---
 # Security Hardening
 

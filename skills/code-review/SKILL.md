@@ -1,10 +1,6 @@
 ---
 name: code-review
-description: Review a diff for correctness, security, and maintainability before it merges
-references: [owasp]
-tags: [review, quality]
-tools: [git, bash]
-effort: medium
+description: Use when reviewing a diff, pull request, or code change before it merges — check correctness, security, and maintainability
 ---
 # Code Review
 
@@ -30,7 +26,7 @@ Review a diff for correctness, style, security, and maintainability. Feedback is
 
 ## References
 
-- `references/owasp.md` when the diff touches auth, input, SQL, or untrusted data
+- `references/owasp.md` — OWASP Top 10 risks and mitigations; use when the diff touches auth, input, SQL, or untrusted data
 
 ## Guardrails
 

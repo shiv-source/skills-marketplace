@@ -1,10 +1,6 @@
 ---
 name: api-design
-description: Design consistent, validated, well-documented API contracts
-references: [openapi, graphql]
-tags: [api, rest, backend]
-tools: [bash]
-effort: medium
+description: Use when adding or changing HTTP endpoints, request/response contracts, validation, error handling, pagination, versioning, REST routes, GraphQL schemas, or OpenAPI documents
 ---
 # API Design
 

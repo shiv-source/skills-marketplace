@@ -1,9 +1,6 @@
 ---
 name: docs-writing
-description: Write reader-first docs that stay in sync with the implementation
-references: [openapi]
-tags: [documentation, writing]
-effort: low
+description: Use when adding or updating READMEs, API docs, inline docs, or operational runbooks, and when changed behavior or contracts must stay in sync with documentation
 ---
 # Documentation
 
@@ -27,7 +24,7 @@ Write documentation that follows repository conventions and serves its readers: 
 
 ## References
 
-- `references/openapi.md` when documenting REST API contracts
+- `references/openapi.md` — OpenAPI contract authoring and error semantics; use when documenting REST API contracts
 
 ## Guardrails
 

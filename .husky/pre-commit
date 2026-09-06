@@ -1,0 +1,2 @@
+bash scripts/protect-branches.sh || exit $?
+npm run check

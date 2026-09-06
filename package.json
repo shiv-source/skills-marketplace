@@ -1,0 +1,23 @@
+{
+  "name": "skills-marketplace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Community skill catalog for opencode/Claude agents",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "validate": "node scripts/validate.mjs",
+    "check": "npm run generate && npm run validate",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  },
+  "dependencies": {
+    "js-yaml": "^5.4.1"
+  }
+}

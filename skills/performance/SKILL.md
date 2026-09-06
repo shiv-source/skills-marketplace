@@ -1,10 +1,6 @@
 ---
 name: performance
-description: Find and fix performance problems with evidence, not guesses
-references: [postgres, go, node]
-tags: [performance, profiling, optimization]
-tools: [bash]
-effort: high
+description: Use when investigating slowness, latency, throughput, scaling, or missed SLOs, and when profiling, optimizing, or troubleshooting queries, caching, and hot paths
 ---
 # Performance Analysis
 
@@ -37,7 +33,9 @@ Find and fix performance problems with evidence, not guesses. Every change is ju
 
 ## References
 
-- `references/postgres.md` for query/plan tuning, `references/go.md` or `references/node.md` for language-specific profiling
+- `references/postgres.md` — query/plan tuning
+- `references/go.md` — Go profiling and language specifics
+- `references/node.md` — Node.js profiling and language specifics
 
 ## Guardrails
 
