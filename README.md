@@ -1,54 +1,145 @@
 # Skills Marketplace
 
-Community skill catalog for CodePilot. Each skill is a directory under
-`skills/<slug>/` following the `SKILL.md` convention used by CodePilot agents at
-runtime.
+Enterprise-standard skill catalog for opencode/Claude agents. Each skill lives in
+`skills/<slug>/SKILL.md` following the [opencode Agent Skills](https://opencode.ai/docs/skills)
+convention. The catalog is machine-readable, schema-validated, and generated from
+a single source of truth.
 
-## Naming rules
-
-A skill's **slug is its directory name and its `name`** — lowercase letters,
-numbers, and hyphens only. There is no separate human-facing name inside the
-repo; pretty labels live in `catalog.json` under `title`.
-
-## Adding a skill
+## Repository layout
 
 ```
-skills/<slug>/
-  SKILL.md            # YAML front-matter + markdown instructions (required)
-  references/*.md     # optional reference docs loadable via load_reference
+skills-marketplace/
+├── .github/workflows/ci.yml  # check on PRs; build+upload catalog on main
+├── .husky/pre-commit         # git hook: block main commits + npm run check
+├── skills/<slug>/
+│   ├── SKILL.md              # skill instructions (name == slug == dir)
+│   └── references/*.md       # bundled reference docs (self-contained skill)
+├── catalog.schema.json       # JSON Schema contract for catalog.json
+├── scripts/
+│   ├── protect-branches.sh   # branch-protection guard used by the git hook
+│   ├── frontmatter.mjs       # constrained YAML frontmatter parser
+│   ├── generate.mjs          # catalog.json generator (reads SKILL.md frontmatter)
+│   └── validate.mjs          # full conformance + drift validator
+└── package.json              # npm run generate / validate
 ```
 
-`SKILL.md` front-matter fields (`name` must equal the directory/slug):
+`catalog.json` is a **generated artifact and is not tracked** (see
+`.gitignore`). It is produced by `npm run generate` and built by CI from the
+SKILL.md files.
 
-```yaml
+## Skill format
+
+A skill is a directory whose name is its **slug** — lowercase letters, numbers,
+and hyphens only (`^[a-z0-9]+(-[a-z0-9]+)*$`, max 64 chars). It contains exactly
+one `SKILL.md`:
+
+```markdown
 ---
 name: code-review
-description: One-line summary shown in the marketplace
-references: [owasp]       # optional reference slugs (files under references/)
-tools: [git, bash]        # tools the skill expects available
-tags: [review, quality]   # optional classification
-effort: medium            # optional: low | medium | high
+description: Use when reviewing a diff, pull request, or code change before it merges — check correctness, security, and maintainability
 ---
 ```
 
-Then add an entry to `catalog.json` so the marketplace can list the skill in a
-single request. `name` repeats the slug; `title` is the display name:
+Frontmatter fields:
 
-```json
-{
-  "skills": [
-    { "slug": "code-review", "name": "code-review", "title": "Code Review", "description": "…", "icon": "🔍", "version": "1.0.0", "path": "skills/code-review" }
-  ]
-}
+| Field | Required | Meaning |
+| --- | --- | --- |
+| `name` | yes | Must equal the slug and the directory name. |
+| `description` | yes | One sentence, third-person ("Use when…"), front-loading trigger keywords. opencode filters out skills without one. |
+
+These two fields are the full opencode skill contract — nothing else is needed.
+The `SKILL.md` body follows a consistent structure — `Purpose`, `When to use`,
+`Procedure`, `References`, `Guardrails`, `Done when`.
+
+## Skill references
+
+A skill is **self-contained**: any reference docs it needs are bundled inside the
+skill directory as `skills/<slug>/references/*.md` and linked relatively from the
+SKILL.md body (`references/owasp.md`). Copying the skill folder anywhere keeps it
+fully working — nothing points outside the skill.
+
+The `references` list in `catalog.json` is derived from these files (a sorted
+list of `*.md` basenames), so the frontmatter does not need to repeat it.
+
+When the same reference is useful to several skills (e.g. `owasp.md` for both
+`security-hardening` and `code-review`), each skill keeps its own copy. Keep such
+copies byte-identical; `npm run validate` warns if copies of a reference that
+exist in multiple skills diverge, so a shared edit is never silently lost.
+
+## catalog.json
+
+`catalog.json` lists the whole marketplace in one request and is **generated**
+from the SKILL.md files — it is not a source of truth and is not committed to
+the repository. Generate it locally with:
+
+```
+npm run generate
 ```
 
-## Install URL
+The catalog carries marketplace-level metadata (`schemaVersion`, `description`,
+`homepage`, `repository`, `license`, `updatedAt`) plus a record per skill
+(`slug`, `name`, `description`, `references`, `path`). The contract is defined by
+`catalog.schema.json` (JSON Schema 2020-12).
 
-The CodePilot server reads this repository as its default marketplace:
+## Validation
+
+`catalog.schema.json` and `scripts/validate.mjs` enforce the contract. The
+validator exits non-zero on any violation:
+
+- `catalog.json` is valid JSON and satisfies `catalog.schema.json`
+- slug is kebab-case, ≤ 64 chars, and equals `name` and the directory name
+- every skill has a non-empty `description` (opencode requirement)
+- the frontmatter contains only the supported `name` and `description` fields
+- the `references` list matches the `*.md` files bundled in `skills/<slug>/references/`
+- every `references/*.md` linked from a SKILL.md body actually exists in that skill
+- every `skills/<slug>/` directory is registered in the catalog and vice versa
+- the generated `catalog.json` is in sync with the SKILL.md files (no drift)
+
+The validator expects a generated `catalog.json` to exist, so run the full
+check (generate first):
 
 ```
-https://github.com/shiv-source/skills-marketplace
+npm run check
 ```
 
-Installing a skill from the CodePilot UI pulls `SKILL.md` plus its `references/`
-files over the GitHub Contents API and stores them per user.
+### CI (`.github/workflows/ci.yml`, Node 24)
+
+- **Pull requests** — `npm run check` (generate + validate) runs to prove the
+  branch's skills are well-formed. You don't need to run `npm run generate`
+  locally before pushing.
+- **Push to `main`** — the `publish-catalog` job generates and validates
+  `catalog.json`, then uploads it as a downloadable **workflow artifact**
+  (`.github` run → Artifacts). There is no stable hosted URL; consumers build
+  the catalog from source with `npm run generate`.
+
+### Local git hooks (Husky)
+
+Husky installs a `pre-commit` hook on `npm install` (see `prepare`). The hook:
+
+1. Blocks direct commits to `main`/`master` (via `scripts/protect-branches.sh`) — use a
+   feature branch and open a PR instead.
+2. Runs `npm run check` so a commit can never break the catalog build.
+
+## Adding or updating a skill
+
+1. Create `skills/<slug>/SKILL.md` (or edit an existing one) with the `name` +
+   `description` frontmatter and body above. Bundle any reference docs the skill
+   needs under `skills/<slug>/references/` and link them relatively from the
+   body. If the content already exists in another skill's `references/`, copy it
+   verbatim.
+2. Open a pull request. CI checks it (and builds the catalog artifact on
+   `main`). To preview the catalog locally, run `npm run check`.
+
+## Consuming the catalog
+
+`catalog.json` is built from source. To produce it:
+
+```
+git clone https://github.com/shiv-source/skills-marketplace
+cd skills-marketplace
+npm ci          # installs Husky/dev deps
+npm run check   # generates catalog.json + validates everything
+```
+
+The CI workflow also uploads the generated `catalog.json` as an artifact of
+every `main` run (see the run's **Artifacts** section).

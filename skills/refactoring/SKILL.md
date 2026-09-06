@@ -1,9 +1,6 @@
 ---
 name: refactoring
-description: Restructure code to improve design without changing observable behavior
-tags: [refactoring, quality]
-tools: [bash]
-effort: medium
+description: Use when asked to improve, clean up, simplify, restructure, deduplicate, extract, or rename existing code without changing its observable behavior
 ---
 # Safe Refactoring
 

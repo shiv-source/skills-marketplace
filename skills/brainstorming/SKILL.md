@@ -1,8 +1,6 @@
 ---
 name: brainstorming
-description: Explore options and trade-offs before committing to a direction
-tags: [planning, research]
-effort: low
+description: Use when a task is open-ended — how should we, options for, design a — without a chosen direction, or when comparing approaches and trade-offs before committing
 ---
 # Brainstorming
 

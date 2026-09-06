@@ -1,10 +1,6 @@
 ---
 name: test-first
-description: Write a failing test first and drive the change through red-green-refactor
-references: [testing-library]
-tags: [testing, tdd]
-tools: [bash]
-effort: medium
+description: Use when a task adds or changes behavior you can observe and assert, or fixes a bug — write the failing test first and drive the change through red-green-refactor
 ---
 # Test-Driven Implementation
 
@@ -29,7 +25,7 @@ Drive changes through a red-green-refactor loop. Tests are the specification; co
 
 ## References
 
-- `references/testing-library.md` when the behavior under test is a UI component
+- `references/testing-library.md` — user-centric component tests; use when the behavior under test is a UI component
 
 ## Guardrails
 

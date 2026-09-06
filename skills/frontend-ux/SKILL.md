@@ -1,10 +1,6 @@
 ---
 name: frontend-ux
-description: Build accessible, responsive UI consistent with the design system
-references: [react, angular, vue, nextjs, testing-library]
-tags: [frontend, accessibility, ux]
-tools: [bash]
-effort: medium
+description: Use when building or changing components, pages, routes, or styling, and for accessibility, responsiveness, or design-system conformance in any frontend framework
 ---
 # Frontend & UX
 
@@ -24,7 +20,7 @@ Build interfaces that are accessible, responsive, and consistent with the existi
 1. Survey the existing UI first with `read_file` and `grep`: find the component library, design tokens, routing conventions, and styling approach. Never guess them.
 2. Reuse shared components and tokens; introduce a new pattern only when none fits, and mirror the closest existing one.
 3. Enumerate every state of the view — loading, empty, error, success — and implement all four before calling it done.
-4. Read the reference for the framework in play before writing framework-specific code (load it via `load_reference`):
+4. Read the reference for the framework in play before writing framework-specific code:
    - `references/react.md` for React components and hooks
    - `references/angular.md` for Angular components, DI, and templates
    - `references/vue.md` for Vue SFCs and composables

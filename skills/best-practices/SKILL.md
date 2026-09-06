@@ -1,8 +1,6 @@
 ---
 name: best-practices
-description: Default quality bar: readable, correct, testable, maintainable code
-tags: [quality, conventions]
-effort: low
+description: Use as the default baseline when writing or changing production code that has no more specific skill attached — readable, correct, testable, maintainable code
 ---
 # Engineering Best Practices
 
