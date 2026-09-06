@@ -1,5 +1,5 @@
 ---
-name: API Design
+name: api-design
 description: Design consistent, validated, well-documented API contracts
 references: [openapi, graphql]
 tags: [api, rest, backend]

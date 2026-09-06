@@ -1,5 +1,5 @@
 ---
-name: Safe Refactoring
+name: refactoring
 description: Restructure code to improve design without changing observable behavior
 tags: [refactoring, quality]
 tools: [bash]

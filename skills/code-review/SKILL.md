@@ -1,5 +1,5 @@
 ---
-name: Code Review
+name: code-review
 description: Review a diff for correctness, security, and maintainability before it merges
 references: [owasp]
 tags: [review, quality]

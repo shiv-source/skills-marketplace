@@ -1,5 +1,5 @@
 ---
-name: Brainstorming
+name: brainstorming
 description: Explore options and trade-offs before committing to a direction
 tags: [planning, research]
 effort: low

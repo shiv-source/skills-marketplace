@@ -1,5 +1,5 @@
 ---
-name: Security Hardening
+name: security-hardening
 description: Apply OWASP-informed secure coding and threat modeling to every trust boundary
 references: [owasp]
 tags: [security, owasp, threat-modeling]

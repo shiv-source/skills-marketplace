@@ -1,5 +1,5 @@
 ---
-name: Database Migrations
+name: database-migrations
 description: Design safe, reversible schemas and migrations with the right indexes
 references: [postgres]
 tags: [database, sql, migrations]

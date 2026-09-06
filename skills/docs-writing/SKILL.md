@@ -1,5 +1,5 @@
 ---
-name: Documentation
+name: docs-writing
 description: Write reader-first docs that stay in sync with the implementation
 references: [openapi]
 tags: [documentation, writing]

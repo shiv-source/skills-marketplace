@@ -1,5 +1,5 @@
 ---
-name: Engineering Best Practices
+name: best-practices
 description: Default quality bar: readable, correct, testable, maintainable code
 tags: [quality, conventions]
 effort: low

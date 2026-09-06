@@ -1,5 +1,5 @@
 ---
-name: Frontend & UX
+name: frontend-ux
 description: Build accessible, responsive UI consistent with the design system
 references: [react, angular, vue, nextjs, testing-library]
 tags: [frontend, accessibility, ux]

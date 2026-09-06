@@ -1,5 +1,5 @@
 ---
-name: Performance Analysis
+name: performance
 description: Find and fix performance problems with evidence, not guesses
 references: [postgres, go, node]
 tags: [performance, profiling, optimization]

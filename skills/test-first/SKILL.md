@@ -1,5 +1,5 @@
 ---
-name: Test-Driven Implementation
+name: test-first
 description: Write a failing test first and drive the change through red-green-refactor
 references: [testing-library]
 tags: [testing, tdd]
