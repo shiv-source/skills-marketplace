@@ -1,0 +1,92 @@
+{
+  "skills": [
+    {
+      "slug": "code_review",
+      "name": "Code Review",
+      "description": "Review a diff for correctness, security, and maintainability before it merges",
+      "icon": "🔍",
+      "version": "1.0.0",
+      "path": "skills/code_review"
+    },
+    {
+      "slug": "test_first",
+      "name": "Test-Driven Implementation",
+      "description": "Write a failing test first and drive the change through red-green-refactor",
+      "icon": "🧪",
+      "version": "1.0.0",
+      "path": "skills/test_first"
+    },
+    {
+      "slug": "security_hardening",
+      "name": "Security Hardening",
+      "description": "Apply OWASP-informed secure coding and threat modeling to every trust boundary",
+      "icon": "🔒",
+      "version": "1.0.0",
+      "path": "skills/security_hardening"
+    },
+    {
+      "slug": "database_migrations",
+      "name": "Database Migrations",
+      "description": "Design safe, reversible schemas and migrations with the right indexes",
+      "icon": "🗄️",
+      "version": "1.0.0",
+      "path": "skills/database_migrations"
+    },
+    {
+      "slug": "api_design",
+      "name": "API Design",
+      "description": "Design consistent, validated, well-documented API contracts",
+      "icon": "🔌",
+      "version": "1.0.0",
+      "path": "skills/api_design"
+    },
+    {
+      "slug": "frontend_ux",
+      "name": "Frontend & UX",
+      "description": "Build accessible, responsive UI consistent with the design system",
+      "icon": "🖥️",
+      "version": "1.0.0",
+      "path": "skills/frontend_ux"
+    },
+    {
+      "slug": "docs_writing",
+      "name": "Documentation",
+      "description": "Write reader-first docs that stay in sync with the implementation",
+      "icon": "📝",
+      "version": "1.0.0",
+      "path": "skills/docs_writing"
+    },
+    {
+      "slug": "performance",
+      "name": "Performance Analysis",
+      "description": "Find and fix performance problems with evidence, not guesses",
+      "icon": "⚡",
+      "version": "1.0.0",
+      "path": "skills/performance"
+    },
+    {
+      "slug": "brainstorming",
+      "name": "Brainstorming",
+      "description": "Explore options and trade-offs before committing to a direction",
+      "icon": "💡",
+      "version": "1.0.0",
+      "path": "skills/brainstorming"
+    },
+    {
+      "slug": "best_practices",
+      "name": "Engineering Best Practices",
+      "description": "Default quality bar: readable, correct, testable, maintainable code",
+      "icon": "✨",
+      "version": "1.0.0",
+      "path": "skills/best_practices"
+    },
+    {
+      "slug": "refactoring",
+      "name": "Safe Refactoring",
+      "description": "Restructure code to improve design without changing observable behavior",
+      "icon": "🔧",
+      "version": "1.0.0",
+      "path": "skills/refactoring"
+    }
+  ]
+}
